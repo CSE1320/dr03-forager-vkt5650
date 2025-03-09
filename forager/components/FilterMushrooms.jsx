@@ -4,14 +4,17 @@ import MushroomCard from "@/components/Mushroom/MushroomCard";
 
 export default function FilterMushrooms({ searchQuery, filters }) {
   const lowercasedQuery = searchQuery.toLowerCase();
+  const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
   const filteredMushrooms = mushrooms.filter((mushroom) => {
+    const isFavorite = storedFavorites.includes(mushroom.id);
+
     const matchesFilter =
       filters.length === 0 ||  
       filters.some(filter =>
         mushroom.regions.includes(filter) ||  
         mushroom.categories.includes(filter) || 
-        (filter === "Favorites" && mushroom.favorite) 
+        (filter === "Favorites" && isFavorite) 
       );
 
     const matchesSearch =

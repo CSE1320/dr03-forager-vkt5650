@@ -18,8 +18,8 @@ const MushroomComparisonTable = ({ userMushroom, comparedMushroom }) => {
   };
 
   return (
-    <div className="w-full max-w-[450px] bg-white shadow-[0px_4px_4px_rgba(0,0,0,0.25)] rounded-lg p-4 overflow-x-auto mx-auto">
-      <table className="w-full border-collapse text-base">
+    <div className="w-full max-w-[500px] bg-white shadow-[0px_4px_4px_rgba(0,0,0,0.25)] rounded-lg p-4 overflow-x-auto mx-auto">
+      <table className="w-full border border-gray-300 text-base">
         <tbody>
           {Object.keys(userMushroom).map((feature, index) => {
             if (feature === "name" || feature === "image") return null;
@@ -27,22 +27,20 @@ const MushroomComparisonTable = ({ userMushroom, comparedMushroom }) => {
             return (
               <tr key={index} className="border-t border-gray-300">
                 {/* Left Column (Editable User Input) */}
-                <td className="px-4 py-2 text-gray-700 border-r border-gray-300 w-[33%] align-middle">
-                  <div className="flex items-start space-x-2">
+                <td className="px-4 py-3 text-gray-700 border-r border-gray-300 w-[30%] align-middle">
+                  <div className="flex items-center space-x-2">
                     <button
                       onClick={() => handleEditClick(feature)}
                       className="w-[22px] h-[22px] flex items-center justify-center rounded-full bg-[#D9D9D9] border border-gray-400"
                     >
                       <img src="/icons/small_x.svg" alt="x button" />
                     </button>
-                    <span className="underline translate-y-[2px]">
-                      {editableMushroom[feature]}
-                    </span>
+                    <span className="underline">{editableMushroom[feature]}</span>
                   </div>
                 </td>
 
                 {/* Feature Label Column (Middle) */}
-                <td className="px-6 py-4 text-[#203B5F] text-center font-nunito text-[16px] font-bold leading-normal border-x border-gray-300 w-[33%]">
+                <td className="px-4 py-3 text-[#203B5F] text-center font-nunito text-[16px] font-bold border-x border-gray-300 w-[40%]">
                   {feature
                     .replace(/([A-Z])/g, " $1")
                     .trim()
@@ -50,7 +48,7 @@ const MushroomComparisonTable = ({ userMushroom, comparedMushroom }) => {
                 </td>
 
                 {/* Right Column (Compared Mushroom Data) */}
-                <td className="px-4 py-2 text-gray-700 border-l border-gray-300 text-center w-[33%]">
+                <td className="px-4 py-3 text-gray-700 border-l border-gray-300 text-center w-[30%]">
                   {comparedMushroom[feature]}
                 </td>
               </tr>
@@ -92,4 +90,3 @@ const MushroomComparisonTable = ({ userMushroom, comparedMushroom }) => {
 };
 
 export default MushroomComparisonTable;
-

@@ -73,7 +73,7 @@ const MushroomComparisonPage = () => {
 
                 {/* Comparison Table */}
       <div className="mt-6 w-full flex justify-center px-4">
-        <div className="w-full max-w-[95%]">
+        <div className="w-full max-w-[500px]">
           <MushroomComparisonTable userMushroom={userMushroom} comparedMushroom={comparedMushroom} />
         </div>
       </div>

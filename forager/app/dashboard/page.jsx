@@ -62,7 +62,8 @@ export default function DashboardPage() {
       </div>
 
       {/* active filters */}
-      <div className="p-4 flex gap-2 bg-white border-none shadow-none">
+      <div className="p-4 flex gap-2 bg-white !border-0 !shadow-none !outline-none">
+
         {activeFilters.length > 0 && activeFilters.map((filter) => (
           <span key={filter} className="px-3 py-1 bg-[#397367] text-white rounded-full font-bold">
             {filter}
