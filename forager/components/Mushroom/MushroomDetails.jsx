@@ -19,8 +19,8 @@ export default function MushroomDetails({ name, scientificName, fastFacts }) {
       updatedFavorites.push(deathCap.id);
     }
 
-    setFavorites(updatedFavorites);
     localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+    setFavorites(updatedFavorites); 
   };
 
   return (
@@ -48,4 +48,5 @@ export default function MushroomDetails({ name, scientificName, fastFacts }) {
     </div>
   );
 }
+
 
