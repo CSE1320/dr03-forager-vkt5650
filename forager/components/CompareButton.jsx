@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 
 export default function CompareButton() {
   const router = useRouter();
-
+  
   return (
     <button
       onClick={() => router.push("/comparison")} 

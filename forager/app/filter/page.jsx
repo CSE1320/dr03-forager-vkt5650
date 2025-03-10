@@ -1,35 +1,33 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import FilterSettings from "@/components/FilterSettings";
-import { filterLists } from "@/data/development";
 import { useRouter } from "next/navigation";
+import PillFunctionality from "@/components/PillFunctionality";
+import { filterLists } from "@/data/development";
 
 export default function FilterPage() {
-  const router = useRouter(); 
-
-  // Load selected filters from sessionStorage (to persist filters when navigating)
+  const router = useRouter();
   const [filters, setFilters] = useState(() => {
-    const storedFilters = sessionStorage.getItem("activeFilters");
-    return storedFilters ? JSON.parse(storedFilters) : filterLists;
+    return JSON.parse(sessionStorage.getItem("activeFilters")) || filterLists;
   });
 
-  // Function to update selected filters
   const handlePillClick = (categoryIndex, pillLabel) => {
-    const updatedFilters = filters.map((category, index) => {
-      if (index === categoryIndex) {
-        return {
-          ...category,
-          pills: category.pills.map((pill) =>
-            pill.label === pillLabel
-              ? { ...pill, isSelected: !pill.isSelected }
-              : pill
-          ),
-        };
-      }
-      return category;
+    setFilters((prevFilters) => {
+      const updatedFilters = prevFilters.map((category, index) =>
+        index === categoryIndex
+          ? {
+              ...category,
+              pills: category.pills.map((pill) =>
+                pill.label === pillLabel
+                  ? { ...pill, isSelected: !pill.isSelected }
+                  : pill
+              ),
+            }
+          : category
+      );
+
+      sessionStorage.setItem("activeFilters", JSON.stringify(updatedFilters));
+      return updatedFilters;
     });
-    setFilters(updatedFilters);
-    sessionStorage.setItem("activeFilters", JSON.stringify(updatedFilters)); // ✅ Save filters
   };
 
   return (
@@ -37,19 +35,15 @@ export default function FilterPage() {
       <div className="w-[95%] max-w-md h-[90%] bg-white rounded-xl shadow-lg p-6 flex flex-col">
         <div className="flex justify-center items-center border-b pb-3 pt-2 relative">
           <h1 className="font-bold text-2xl text-black">FILTER</h1>
-          <button 
-            onClick={() => router.back()} 
-            className="absolute right-4 text-black text-3xl"
-          >
-            ✖
+          <button onClick={router.back} className="absolute right-4 text-black text-3xl">
+            <img src="/icons/dark_X.svg" alt="X button"/>
           </button>
         </div>
 
         <div className="mt-4 flex-grow overflow-y-auto">
-          <FilterSettings lists={filters} onPillClick={handlePillClick} />
+          <PillFunctionality lists={filters} onPillClick={handlePillClick} />
         </div>
       </div>
     </div>
-
   );
 }

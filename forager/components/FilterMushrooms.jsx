@@ -1,29 +1,37 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { mushrooms } from "@/data/development";
-import MushroomCard from "@/components/Mushroom/MushroomCard";
+import MushroomCard from "@/components/MushroomCard";
 
 export default function FilterMushrooms({ searchQuery, filters }) {
   const lowercasedQuery = searchQuery.toLowerCase();
-  const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
-  const filteredMushrooms = mushrooms.filter((mushroom) => {
-    const isFavorite = storedFavorites.includes(mushroom.id);
+  const storedFavorites = useMemo(() => {
+    if (typeof window !== "undefined") {
+      return JSON.parse(localStorage.getItem("favorites")) || [];
+    }
+    return [];
+  }, []);
 
-    const matchesFilter =
-      filters.length === 0 ||  
-      filters.some(filter =>
-        mushroom.regions.includes(filter) ||  
-        mushroom.categories.includes(filter) || 
-        (filter === "Favorites" && isFavorite) 
-      );
+  const filteredMushrooms = useMemo(() => {
+    return mushrooms.filter((mushroom) => {
+      const isFavorite = storedFavorites.includes(mushroom.id);
 
-    const matchesSearch =
-      lowercasedQuery === "" ||
-      mushroom.name.toLowerCase().includes(lowercasedQuery) ||
-      mushroom.scientificName.toLowerCase().includes(lowercasedQuery);
+      const matchesFilter =
+        filters.length === 0 ||
+        filters.some((filter) =>
+          ["regions", "categories"].some((key) => mushroom[key]?.includes(filter)) ||
+          (filter === "Favorites" && isFavorite)
+        );
 
-    return matchesFilter && matchesSearch; 
-  });
+      const matchesSearch =
+        !lowercasedQuery ||
+        [mushroom.name, mushroom.scientificName].some((field) =>
+          field.toLowerCase().includes(lowercasedQuery)
+        );
+
+      return matchesFilter && matchesSearch;
+    });
+  }, [searchQuery, filters, storedFavorites]);
 
   return (
     <div className="grid grid-cols-3 gap-6">

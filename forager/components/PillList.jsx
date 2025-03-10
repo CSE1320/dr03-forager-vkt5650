@@ -2,15 +2,15 @@
 import React, { useState } from "react";
 import Pill from "@/components/Pill";
 
-const PillList = ({ category, pills, onPillClick }) => {
+export default function PillList({ category, pills, onPillClick }) {
   const [pillStates, setPillStates] = useState(pills);
+
   const handlePillClick = (clickedLabel) => {
-    const updatedPills = pillStates.map((pill) =>
-      pill.label === clickedLabel
-        ? { ...pill, isSelected: !pill.isSelected }
-        : pill
+    setPillStates((prevPills) =>
+      prevPills.map((pill) =>
+        pill.label === clickedLabel ? { ...pill, isSelected: !pill.isSelected } : pill
+      )
     );
-    setPillStates(updatedPills);
     onPillClick(clickedLabel);
   };
 
@@ -18,17 +18,10 @@ const PillList = ({ category, pills, onPillClick }) => {
     <div>
       <h2 className="text-lg font-bold">{category}</h2>
       <div className="flex flex-wrap gap-2 mt-2">
-        {pillStates.map((pill, index) => (
-          <Pill
-            key={index}
-            label={pill.label}
-            isSelected={pill.isSelected}
-            onClick={handlePillClick}
-          />
+        {pillStates.map((pill) => (
+          <Pill key={pill.label} {...pill} onClick={handlePillClick} />
         ))}
       </div>
     </div>
   );
-};
-
-export default PillList;
+}

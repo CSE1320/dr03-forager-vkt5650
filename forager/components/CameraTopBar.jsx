@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function TopMenu() {
+export default function TopBar() {
   return (
     <div className="absolute top-0 left-0 right-0 flex items-center justify-between px-6 py-4 bg-black bg-opacity-50 z-50">
       <Link href="/dashboard" passHref>

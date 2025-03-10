@@ -1,4 +1,4 @@
-const PercentageDescription = ({ onClose }) => {
+const PercentInfo = ({ onClose }) => {
   return (
     <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/4 z-50 bg-[#6BC591] text-white p-4 rounded-lg shadow-lg w-[300px]">
       <div className="flex justify-between items-center">
@@ -12,4 +12,4 @@ const PercentageDescription = ({ onClose }) => {
   );
   };
   
-export default PercentageDescription;
+export default PercentInfo;
