@@ -8,7 +8,7 @@ import MushroomHeader from "@/components/MushroomPageHeader";
 import ReportError from "@/components/ReportError";
 import CompareButton from "@/components/CompareButton";
 import SelectedMushroomCard from "@/components/SelectedMushroomCard";
-import SimilarMatches from "@/components/SimilarMatches";
+import SimilarMatches from "@/components/SimilarMatchList";
 import MushroomInfoSection from "@/components/MushroomInfoSection";
 import MistakeReminder from "@/components/MistakeReminder";
 import Message from "@/components/Message";

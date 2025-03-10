@@ -1,12 +1,11 @@
 import TopBar from "@/components/CameraTopBar";
 import BottomBar from "@/components/CameraBottomBar";
+import BackgroundScreen from "@/components/BackgroundScreen";
 
 export default function PhotoSearchPage() {
   return (
     <div className="relative w-full h-screen flex flex-col overflow-hidden">
-      <div className="absolute inset-0 flex items-center justify-center z-0">
-        <img src="/images/camera_mushroom.png" alt="Photosearch background" fill className="w-full h-full object-cover"/>
-      </div>
+      <BackgroundScreen />
       
       <TopBar />
       <div className="relative z-10 flex-grow flex items-center justify-center">

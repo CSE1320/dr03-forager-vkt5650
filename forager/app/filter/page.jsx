@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import PillFunctionality from "@/components/PillFunctionality";
+import FilterSettings from "@/components/FilterSettings";
 import { filterLists } from "@/data/development";
 
 export default function FilterPage() {
@@ -41,7 +41,7 @@ export default function FilterPage() {
         </div>
 
         <div className="mt-4 flex-grow overflow-y-auto">
-          <PillFunctionality lists={filters} onPillClick={handlePillClick} />
+          <FilterSettings lists={filters} onPillClick={handlePillClick} />
         </div>
       </div>
     </div>

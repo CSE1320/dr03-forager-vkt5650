@@ -1,7 +1,7 @@
 import React from "react";
 import PillList from "@/components/PillList";
 
-export default function PillFunctionality({ lists, onPillClick }) {
+export default function FilterSettings({ lists, onPillClick }) {
   return (
     <div className="flex flex-col gap-6">
       {lists.map(({ category, pills }, index) => (

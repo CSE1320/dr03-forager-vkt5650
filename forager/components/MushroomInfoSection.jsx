@@ -4,12 +4,7 @@ import MushroomDescription from "@/components/MushroomDescription";
 import { mushrooms } from "@/data/development";
 
 export default function MushroomInfoSection({ name, scientificName, fastFacts }) {
-  const [favorites, setFavorites] = useState(() => {
-    if (typeof window !== "undefined") {
-      return JSON.parse(localStorage.getItem("favorites")) || [];
-    }
-    return [];
-  });
+  const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -20,7 +15,13 @@ export default function MushroomInfoSection({ name, scientificName, fastFacts })
 
   const handleAddToFavorites = () => {
     setFavorites((prevFavorites) => {
-      const updatedFavorites = prevFavorites.includes(1) ? prevFavorites : [...prevFavorites, 1];
+      const mushroomData = mushrooms.find(mushroom => mushroom.name === name);
+      if (!mushroomData) return prevFavorites;
+
+      const updatedFavorites = prevFavorites.includes(mushroomData.id)
+        ? prevFavorites.filter(id => id !== mushroomData.id)  // Remove if already in favorites
+        : [...prevFavorites, mushroomData.id];  // Add if not in favorites
+
       localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
       return updatedFavorites;
     });
@@ -31,7 +32,12 @@ export default function MushroomInfoSection({ name, scientificName, fastFacts })
       <div className="mb-4 flex justify-between items-center">
         <h2 className="text-[24px] font-semibold text-[#324053] text-center font-nunito leading-tight">{name}</h2>
         <button onClick={handleAddToFavorites}>
-          <img src="/icons/add.svg" alt="add icon" />
+          <img 
+            src={favorites.includes(mushrooms.find(m => m.name === name)?.id) 
+              ? "/icons/add.svg" 
+              : "/icons/add.svg"} 
+            alt="add icon" 
+          />
         </button>
       </div>
       <p className="text-[20px] font-normal italic text-[rgba(32,59,95,0.75)] font-nunito leading-tight">{scientificName}</p>

@@ -15,7 +15,7 @@ const dummyData = {
     name: "Death Cap",
     scientificName: "Amanita phalloides",
     image: "/images/deathcap.jpg",
-    favorite: false,
+    defaultFavorite: false,
     toxic: true,
     regions: ["Texas", "North America", "Europe", "Asia"],
     categories: ["Poisonous", "Mythical"],
@@ -26,7 +26,7 @@ const dummyData = {
     name: "Paddy Straw",
     scientificName: "Volvariella volvacea",
     image: "/images/paddystraw.jpg",
-    favorite: false,
+    defaultFavorite: false,
     toxic: false,
     regions: ["Asia", "South America"],
     categories: ["Medicinal", "Good for Broths"],
@@ -38,7 +38,7 @@ const dummyData = {
     name: "Destroying Angel",
     scientificName: "Amanita bisporigera",
     image: "/images/destroyingangel.jpg",
-    favorite: false,
+    defaultFavorite: false,
     toxic: true,
     regions: ["North America", "Europe"],
     categories: ["Poisonous", "Mythical"],
@@ -50,7 +50,7 @@ const dummyData = {
     name: "False Death Cap",
     scientificName: "Amanita citrina",
     image: "/images/false_deathcap.jpg",
-    favorite: false,
+    defaultFavorite: false,
     toxic: true,
     regions: ["Europe", "Asia"],
     categories: ["Mythical", "Poisonous"],
@@ -62,7 +62,7 @@ const dummyData = {
     name: "Puffball",
     scientificName: "Lycoperdon perlatum",
     image: "/images/puffball.jpg",
-    favorite: false,
+    defaultFavorite: false,
     toxic: false,
     regions: ["Africa", "North America", "Europe"],
     categories: ["Good for Broths", "Medicinal"],
@@ -74,46 +74,34 @@ const dummyData = {
   export const filterLists = [
     {
       category: "Tags",
-      pills: [
-        { label: "Favorites", isSelected: false },
-        { label: "Recent", isSelected: false },
-      ],
+      pills: ["Favorites", "Recent"].map((label) => ({ label, isSelected: false })),
     },
     {
       category: "Regions",
-      pills: [
-        { label: "Texas", isSelected: false },
-        { label: "North America", isSelected: false },
-        { label: "South America", isSelected: false },
-        { label: "Asia", isSelected: false },
-        { label: "Europe", isSelected: false },
-        { label: "Africa", isSelected: false },
-      ],
+      pills: ["Texas", "North America", "South America", "Asia", "Europe", "Africa"].map(
+        (label) => ({ label, isSelected: false })
+      ),
     },
     {
       category: "Category",
-      pills: [
-        { label: "Poisonous", isSelected: false },
-        { label: "Medicinal", isSelected: false },
-        { label: "Mythical", isSelected: false },
-        { label: "Good for Broths", isSelected: false },
-      ],
+      pills: ["Poisonous", "Medicinal", "Mythical", "Good for Broths"].map((label) => ({
+        label,
+        isSelected: false,
+      })),
     },
   ];
   
-  export function filterMushrooms(filters) {
-    if (filters.length === 0) {
-        return mushrooms; 
-    }
-  
-    return mushrooms.filter(mushroom =>
-        filters.some(filter =>
-            mushroom.regions.includes(filter) ||
-            mushroom.categories.includes(filter) ||
-            (filter === "Favorites" && mushroom.favorite)
-        )
-    );
-  }
+  export const filterMushrooms = (filters) =>
+    filters.length === 0
+      ? mushrooms
+      : mushrooms.filter((mushroom) =>
+          filters.some(
+            (filter) =>
+              mushroom.regions.includes(filter) ||
+              mushroom.categories.includes(filter) ||
+              (filter === "Favorites" && mushroom.favorite)
+          )
+        );
   
   export { warningMessage, dummyData, mushrooms, filterLists }; 
   
